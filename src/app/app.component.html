@@ -1,23 +1,20 @@
 
 <div class="mt-5 d-flex align-center justify-content-center w-100">
-    <form [formArray]="todoList">
-      <h1 class="h3 mb-3 fw-normal">TODO List</h1>
-      <div class="d-flex flex-row justify-content-between" *ngFor="let todo of todoList">
-        <div class="checkbox mb-3 ">
-          <label>
-            <input [formControleName]= "'_finished'" name="finished" type="checkbox" value="Finished">Finished
-          </label>
-        </div>
-        <div class="form-floating">
-          <input type="email" class="form-control" id="something-to-do" placeholder="something to do">
-          <label for="something-to-do">something to do</label>
-        </div>
-        <div class="form-floating">
-          <input type="date" class="form-control" id="something-at" placeholder="01/01/2021">
-          <label for="something-at">Date to do</label>
-        </div>
+  <form>
+    <h1 class="h3 mb-3 fw-normal">TODO List</h1>
+
+    <div *ngFor="let todo of form.controls; let i = index" class="input-group mb-3">
+      <div class="input-group-text">
+        <input [formControl]="getControl(todo, 'finished')" class="form-check-input mt-0" type="checkbox" value="finished" aria-label="Finished">
       </div>
-      <button class="w-100 btn btn-lg btn-primary" type="submit">Add TODO</button>
-    </form>
+      <input [formControl]="getControl(todo, 'label')" type="text" class="form-control" id="something-to-do" placeholder="Something to do" aria-label="Something to do">
+      <span class="input-group-text">-</span>
+      <input [formControl]="getControl(todo, 'at')" type="date" class="form-control" id="something-at" placeholder="Date to do" aria-label="Date to do">
+      <button (click)="deleteRow(i)" class="btn btn-danger" type="button">X</button>
+    </div>
+
+    <button (click)="addTodo()" class="w-100 btn btn-lg btn-primary" type="button">Add TODO</button>
+    <button (click)="saveTodo()" class="w-100 btn btn-lg btn-success" type="submit">Save</button>
+  </form>
 </div>
 
